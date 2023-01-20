@@ -1,0 +1,8 @@
+<h1>Articles listing page</h1>
+
+<%= render 'article' %>
+<br>
+<div class="digg_pagination" style="">
+  <%= will_paginate @articles, :container => false %>
+</div>
+

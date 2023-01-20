@@ -1,0 +1,24 @@
+<br><h1><%= @user.username %>`s profile</h1>
+
+<%= gravatar_for @user %>
+<br>
+<br>
+<h4>
+  <% if logged_in? && @user == current_user %>
+    <%= link_to "Edit profile", edit_user_path(@user) %>
+    <%= link_to "Delete user", user_path(@user), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure?" } %>
+  <% end %>
+</h4>
+
+
+<p><h2>Articles</h2></p>
+
+<% if @articles.any? %>
+  <%= render 'articles/article' %>
+<% else %>
+  You have not articles yet
+<% end %>
+<br>
+<div class="digg_pagination" style="">
+  <%= will_paginate @articles, :container => false %>
+</div>

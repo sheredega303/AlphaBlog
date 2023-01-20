@@ -1,0 +1,20 @@
+<br><h1>Category: <%= @category.name %></h1>
+
+<h4>
+  <% if logged_in? && current_user.admin? %>
+    <%= link_to "Edit category", edit_category_path(@category) %>
+  <% end %>
+</h4>
+
+
+<p><h2>Articles</h2></p>
+
+<% if @articles.any? %>
+  <%= render 'articles/article' %>
+<% else %>
+  You have not articles   yet
+<% end %>
+<br>
+<div class="digg_pagination" style="">
+  <%= will_paginate @articles, :container => false %>
+</div>

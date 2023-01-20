@@ -1,0 +1,37 @@
+<h1>All Users</h1>
+
+
+
+<table>
+  <thead>
+  <tr>
+    <th width="200px">Username</th>
+    <th width="150px">Profile picture</th>
+    <th width="100px">Articles</th>
+    <th colspan="2">Action</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= link_to user.username, user %></td>
+      <td><%= link_to gravatar_for(user, size: 80), user %></td>
+      <td><%= user.articles.count %></td>
+      <td><%= link_to "Show", user_path(user) %></td>
+      <% if logged_in? %>
+        <% if user == current_user %>
+        <td><%= link_to "Edit", edit_user_path(user) %></td>
+        <% end %>
+        <% if current_user.admin? %>
+          <td><%= link_to "Delete", user_path(user), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure?" } %></td>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<br>
+<div class="digg_pagination" style="">
+  <%= will_paginate @users, :container => false %>
+</div>

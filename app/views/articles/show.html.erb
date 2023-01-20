@@ -1,0 +1,16 @@
+<h1><%= @article.title %></h1>
+<% if @article.categories.any? %>
+  <div style="margin-bottom: 10px"><%= render @article.categories %></div>
+<% end %>
+<p><strong>Author: </strong>by <%= link_to @article.user.username, user_path(@article.user) if @article.user %></p>
+<%= gravatar_for(@article.user) %>
+<br>
+<br>
+<p><strong>Description: </strong><%= @article.description %></p>
+
+
+<% if logged_in? && (@article.user == current_user || current_user.admin?) %>
+  <td><%= link_to "Edit", edit_article_path(@article) %></td>
+  <td><%= link_to "Delete", article_path(@article), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure?" } %></td>
+<% end %>
+<%= link_to 'Back', articles_path %>
